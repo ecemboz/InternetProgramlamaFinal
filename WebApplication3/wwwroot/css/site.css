@@ -1,0 +1,72 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/*_Layout.cshtml için*/
+.sidebar {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Dikey ortalama */
+    align-items: center; /* Yatay ortalama */
+    text-align: center;
+    padding: 20px;
+}
+
+    .sidebar .nav-link {
+        font-size: 1.2rem; /* Yazý boyutunu büyütme */
+        font-weight: bold; /* Yazý kalýnlýðý */
+        padding: 10px 0;
+    }
+
+    .sidebar .img-fluid {
+        max-width: 150px; /* Logoyu büyütme */
+        margin: 0 auto 20px auto; /* Alt boþluk ekleme */
+        display: block;
+    }
+
+    .sidebar .fs-4 {
+        font-size: 1.5rem; /* Yazý boyutunu daha da büyütme */
+        font-weight: bold; /* Yazý kalýnlýðý */
+    }
+
+.position-sticky {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+/*Login.cshtml için*/
+/* Container for centering the card */
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+/* Card styles */
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}

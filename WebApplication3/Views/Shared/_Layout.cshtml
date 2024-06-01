@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - E.B. essentials</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky text-center">
+                    <a class="nav-link active" aria-current="page" asp-area="" asp-controller="Product" asp-action="Index">
+                        <img src="~/images/site/logo.png" alt="Site Icon" class="img-fluid rounded-circle mb-3" />
+                        <span class="fs-4">E.B. Essentials</span>
+                    </a>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a id="login-logout-btn" class="nav-link text-dark" asp-area=""
+                               asp-controller="@((User.Identity.IsAuthenticated) ? "Home" : "Startp")"
+                               asp-action="@((User.Identity.IsAuthenticated) ? "Logout" : "Login")">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <span>Çıkış Yap</span>
+                                }
+                                else
+                                {
+                                    <span>Giriş Yap</span>
+                                }
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#">
+                                <span>Kategori</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#">
+                                <span>Alt Kategori</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#">
+                                <span>Seçilen Kategori Ürünleri</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

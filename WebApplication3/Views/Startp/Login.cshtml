@@ -1,0 +1,37 @@
+﻿@model WebApplication3.Models.Logincs
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<hr />
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card col-md-4 p-4 shadow-sm">
+        <h3 class="text-center font-weight-bold mb-4">LOGIN</h3>
+        <form asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PassWord" class="control-label"></label>
+                <input asp-for="PassWord" class="form-control" />
+                <span asp-validation-for="PassWord" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="LoggedStatus" /> @Html.DisplayNameFor(model => model.LoggedStatus)
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            @if (ViewData["OnayMesaji"] != null)
+            {
+                <br />
+                <br />
+                <label>@ViewData["OnayMesaji"]</label>
+            }
+        </form>
+    </div>
+</div>
