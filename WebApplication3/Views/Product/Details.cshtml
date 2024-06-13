@@ -1,0 +1,67 @@
+﻿@model WebApplication3.Models.Product
+
+@{
+    ViewData["Title"] = "Ürün Detayları";
+}
+
+<h2>@Model.Name Detayları</h2>
+
+<div class="card p-4">
+    <h4>Ürün Bilgileri</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Ürün
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Name
+        </dd>
+        <dt class="col-sm-3">
+            Fiyat
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Price
+        </dd>
+        <dt class="col-sm-3">
+            Stok Durumu
+        </dt>
+        <dd class="col-sm-9">
+            @Model.StockStatus
+        </dd>
+        <dt class="col-sm-3">
+            Kategori
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Category?.Name
+        </dd>
+        <dt class="col-sm-3">
+            Alt Kategori
+        </dt>
+        <dd class="col-sm-9">
+            @Model.SubCategory?.Name
+        </dd>
+        <dt class="col-sm-3">
+            Marka
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Brand?.Name
+        </dd>
+        <div class="col-sm-3 d-flex align-items-center">
+            <dt>
+                Görsel
+            </dt>
+        </div>
+        <div class="col-sm-9 d-flex align-items-center">
+            <dd class="mb-0">
+                @if (!string.IsNullOrEmpty(Model.UrunPhoto))
+                {
+                    <img src="@Model.UrunPhoto" alt="Ürün görseli" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;" />
+                }
+            </dd>
+        </div>
+    </dl>
+</div>
+<div class="text-center mt-4">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
+    <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+</div>

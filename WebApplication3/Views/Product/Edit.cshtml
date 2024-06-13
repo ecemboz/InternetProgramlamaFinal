@@ -1,0 +1,92 @@
+﻿@model WebApplication3.Models.Product
+
+@{
+    ViewData["Title"] = "Ürün Güncelle";
+}
+
+<h2>Ürün Güncelle</h2>
+
+<div class="row">
+    <div class="col-md-6 card">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Ürün</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label">Fiyat</label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StockStatus" class="control-label">Stok Durumu</label>
+                <input asp-for="StockStatus" class="form-control" />
+                <span asp-validation-for="StockStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label">Kategori</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubCategoryId" class="control-label">Alt Kategori</label>
+                <select asp-for="SubCategoryId" class="form-control" asp-items="ViewBag.SubCategories"></select>
+                <span asp-validation-for="SubCategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BrandId" class="control-label">Marka</label>
+                <select asp-for="BrandId" class="form-control" asp-items="ViewBag.Brands"></select>
+                <span asp-validation-for="BrandId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label">Görsel</label>
+                <input asp-for="ImageFile" accept="image/*" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (ViewBag.Errors != null)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewBag.Errors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
+}
+
+<div class="text-center mt-4">
+    <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#CategoryId').change(function () {
+            var categoryId = $(this).val();
+            $.ajax({
+                url: '@Url.Action("GetSubCategories", "Product")',
+                type: 'POST',
+                data: { categoryId: categoryId },
+                success: function (data) {
+                    $('#SubCategoryId').empty();
+                    $.each(data, function (index, subCategory) {
+                        $('#SubCategoryId').append($('<option>', {
+                            value: subCategory.value,
+                            text: subCategory.text
+                        }));
+                    });
+                }
+            });
+        });
+    });
+</script>

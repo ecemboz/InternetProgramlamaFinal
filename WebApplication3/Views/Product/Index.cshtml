@@ -1,0 +1,110 @@
+﻿@model IEnumerable<WebApplication3.Models.Product>
+
+@{
+    ViewData["Title"] = "Ürünler";
+}
+
+<h2>Ürünler</h2>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-action="Create" class="btn btn-primary mb-3">Ürün Oluştur</a>
+}
+
+@section FilterForm {
+    <div class="filter-form mb-4">
+        <form method="get" asp-action="Index">
+            <div class="form-row align-items-end">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="category">Kategori:</label>
+                        <select id="category" name="categoryId" class="form-control" asp-items="ViewBag.Categories" onchange="loadSubCategories()">
+                            <option value="">Hepsi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="subCategory">Alt Kategori:</label>
+                        <select id="subCategory" name="subCategoryId" class="form-control" asp-items="ViewBag.SubCategories">
+                            <option value="">Hepsi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary w-100">Filtrele</button>
+                </div>
+            </div>
+        </form>
+    </div>
+}
+
+<table id="tbllist" class="table table-bordered table-striped table-hover">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>Ürün</th>
+            <th>Fiyat</th>
+            <th>Stok Durumu</th>
+            <th>Kategori</th>
+            <th>Alt Kategori</th>
+            <th>Marka</th>
+            <th>Görsel</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="@((item.StockStatus == 0 && User.Identity.IsAuthenticated) ? "table-warning" : "")">
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>
+                    @if (item.StockStatus == 0 && User.Identity.IsAuthenticated)
+                    {
+                        <span class="text-danger">Ürün Tükendi</span>
+                    }
+                    else
+                    {
+                        @item.StockStatus
+                    }
+                </td>
+                <td>@item.Category?.Name</td>
+                <td>@item.SubCategory?.Name</td>
+                <td>@item.Brand?.Name</td>
+                <td><img src="@("~/Image/"+item.UrunPhoto)" asp-append-version=true class="img-thumbnail" style="width: 100px; height: 100px;" /></td>
+                <td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a href="@Url.Action("Details", "Product", new { id = item.Id })" class="btn btn-info btn-sm">Detaylar</a>
+                        <a href="@Url.Action("Edit", "Product", new { id = item.Id })" class="btn btn-warning btn-sm">Düzenle</a>
+                        <a href="@Url.Action("Delete", "Product", new { id = item.Id })" class="btn btn-danger btn-sm">Sil</a>
+                    }
+                    else
+                    {
+                        @if (item.StockStatus > 0)
+                        {
+                            <form asp-action="ReduceStock" method="post" style="display:inline;">
+                                <input type="hidden" name="productId" value="@item.Id" />
+                                <button type="submit" class="btn btn-primary btn-sm">Satın Al</button>
+                            </form>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+
+<script type="text/javascript">
+    var js = jQuery.noConflict(true);
+    js(document).ready(function () {
+        js('#tbllist').DataTable(
+            {
+
+            });
+    });
+</script>

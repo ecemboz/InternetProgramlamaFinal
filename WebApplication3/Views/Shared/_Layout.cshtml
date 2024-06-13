@@ -32,20 +32,9 @@
                                 }
                             </a>
                         </li>
+                        @* Filtreleme Formu İçin Bölüm *@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">
-                                <span>Kategori</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">
-                                <span>Alt Kategori</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">
-                                <span>Seçilen Kategori Ürünleri</span>
-                            </a>
+                            @RenderSection("FilterForm", required: false)
                         </li>
                     </ul>
                 </div>

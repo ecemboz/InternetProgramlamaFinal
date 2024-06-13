@@ -1,0 +1,72 @@
+﻿@model WebApplication3.Models.Product
+
+@{
+    ViewData["Title"] = "Ürün Sil";
+}
+
+<h2>Ürün Sil</h2>
+
+<h3>Bu ürünü silmek istediğinizden emin misiniz?</h3>
+<div class="card p-4">
+    <h4>Ürün Bilgileri</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Ürün
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Name
+        </dd>
+        <dt class="col-sm-3">
+            Fiyat
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Price
+        </dd>
+        <dt class="col-sm-3">
+            Stok Durumu
+        </dt>
+        <dd class="col-sm-9">
+            @Model.StockStatus
+        </dd>
+        <dt class="col-sm-3">
+            Kategori
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Category
+        </dd>
+        <dt class="col-sm-3">
+            Alt Kategori
+        </dt>
+        <dd class="col-sm-9">
+            @Model.SubCategory
+        </dd>
+        <dt class="col-sm-3">
+            Marka
+        </dt>
+        <dd class="col-sm-9">
+            @Model.Brand?.Name
+        </dd>
+        <div class="col-sm-3 d-flex align-items-center">
+            <dt>
+                Görsel
+            </dt>
+        </div>
+        <div class="col-sm-9 d-flex align-items-center">
+            <dd class="mb-0">
+                @if (!string.IsNullOrEmpty(Model.UrunPhoto))
+                {
+                    <img src="@Model.UrunPhoto" alt="Ürün görseli" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;" />
+                }
+            </dd>
+        </div>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="text-center">
+            <input type="submit" value="Sil" class="btn btn-danger" />
+            <a asp-action="Index" class="btn btn-secondary">Listeye Dön</a>
+        </div>
+    </form>
+</div>

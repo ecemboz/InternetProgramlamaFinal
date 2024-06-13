@@ -4,6 +4,9 @@ namespace WebApplication3.Models
 {
     public class Logincs
     {
+        [Key]
+        public int Id { get; set; }
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
